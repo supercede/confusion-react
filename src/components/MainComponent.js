@@ -5,6 +5,7 @@ import Dishdetail from "./Dishdetail.component";
 import Header from "./headerComponent";
 import Footer from "./footerComponent";
 import Home from "./homeComponent";
+import About from './aboutComponent';
 import Contact from "./contactComponent";
 import { DISHES } from "../shared/dishes";
 import { PROMOTIONS } from '../shared/promotions';
@@ -21,13 +22,8 @@ class MainComponent extends Component {
       comments: COMMENTS,
       promotions: PROMOTIONS,
       leaders: LEADERS
-      // selectedDish: null
     };
   }
-
-  // onDishSelect(dishId) {
-  //   this.setState({ selectedDish: dishId });
-  // }
 
   render() {
     const Homepage = () => {
@@ -52,11 +48,10 @@ class MainComponent extends Component {
           <Route path='/home' component={ Homepage } />
           <Route exact path='/menu' component={() => < Menu dishes={this.state.dishes} />} />
           <Route path='/menu/:dishId' component={dishWithId}></Route>
+          <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
           <Route exact path='/contactus' component={ Contact } />
           <Redirect to='/home' />
         </Switch>
-        {/* <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} /> */}
-        {/* <Dishdetail dish={this.state.dishes.filter(dish => dish.id === this.state.selectedDish)[0]} /> */}
         <Footer />
       </div>
     );

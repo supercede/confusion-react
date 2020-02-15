@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const Footer = props => {
-  return (
+const Footer = () => (
     <div className="footer">
       <div className="container">
         <div className="row justify-content-center">
@@ -86,6 +85,5 @@ const Footer = props => {
       </div>
     </div>
   );
-};
 
 export default Footer;

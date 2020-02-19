@@ -7,7 +7,8 @@ import {
   Input,
   Label,
   Button,
-  Col
+  Col,
+  FormFeedback
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -21,11 +22,18 @@ class Contact extends Component {
       telNum: '',
       message: '',
       contactType: 'Tel.',
-      agree: false
+      agree: false,
+      touched: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        telNum: false
+      }
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   handleInputChange(e) {
@@ -38,12 +46,50 @@ class Contact extends Component {
     });
   }
 
+  handleBlur = field => evt => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true }
+    })
+  }
+
+  validate(firstName, lastName, telNum, email){
+    const errors = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      telNum: '',
+      message: '',
+    };
+
+    if(this.state.touched.firstName && (firstName.length < 3 || firstName.length > 10)) {
+      errors.firstName = 'First Name should be between 3 and 10 characters';
+    }
+
+    if (this.state.touched.lastName && (lastName.length < 3 || lastName.length > 10)) {
+      errors.lastName = 'Last Name should be between 3 and 10 characters';
+    }
+
+    const telReg = /^(\+)*\d+$/;
+
+    if(this.state.touched.telNum && !telReg.test(telNum)) {
+      errors.telNum = 'Tel Numbers can only be numbers (Or start with a plus)';
+    }
+
+    if(this.state.touched.email && email.split('').filter(x => x === '@').length !== 1) {
+      errors.email = 'Emails should contain a @';
+    }
+
+    return errors;
+  }
+
   handleSubmit(e) {
     console.log(`The state is ${JSON.stringify(this.state)}`);
     e.preventDefault();
   }
 
   render() {
+    const { firstName, lastName, telNum, email } = this.state;
+    const errors = this.validate(firstName, lastName, telNum, email);
     return (
       <div className='container'>
         <div className='row'>
@@ -119,10 +165,14 @@ class Contact extends Component {
                     type='text'
                     id='firstName'
                     name='firstName'
+                    valid={errors.firstName === ''}
+                    invalid={errors.firstName !== ''}
                     placeholder='First Name'
                     value={this.state.firstName}
                     onChange={this.handleInputChange}
+                    onBlur={this.handleBlur('firstName')}
                   />
+                  <FormFeedback>{errors.firstName}</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -136,8 +186,12 @@ class Contact extends Component {
                     name='lastName'
                     placeholder='Last Name'
                     value={this.state.lastName}
+                    valid={errors.lastName === ''}
+                    invalid={errors.lastName !== ''}
                     onChange={this.handleInputChange}
+                    onBlur={this.handleBlur('lastName')}
                   />
+                  <FormFeedback>{ errors.lastName }</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -151,8 +205,12 @@ class Contact extends Component {
                     name='telNum'
                     placeholder='Tel Number'
                     value={this.state.telNum}
+                    valid={errors.telNum === ''}
+                    invalid={errors.telNum !== ''}
                     onChange={this.handleInputChange}
+                    onBlur={this.handleBlur('telNum')}
                   />
+                  <FormFeedback>{errors.telNum}</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -166,9 +224,13 @@ class Contact extends Component {
                     name='email'
                     placeholder='Email'
                     value={this.state.email}
+                    valid={errors.email === ''}
+                    invalid={errors.email !== ''}
                     onChange={this.handleInputChange}
+                    onBlur={this.handleBlur('email')}
                   />
                 </Col>
+                <FormFeedback>{errors.email}</FormFeedback>
               </FormGroup>
               <FormGroup row>
                 <Col md={{ size: 6, offset: 2 }}>

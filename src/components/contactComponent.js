@@ -24,7 +24,7 @@ class Contact extends Component {
   }
 
   handleSubmit(values) {
-    console.log(`The state is ${JSON.stringify(values)}`);
+    alert(`Response: ${JSON.stringify(values)}`);
   }
 
   render() {
@@ -106,7 +106,7 @@ class Contact extends Component {
                     id='firstName'
                     name='firstName'
                     validators={{
-                      required, minlength: minLength(3), maxLength: maxLength(15)
+                      required, minLength: minLength(3), maxLength: maxLength(15)
                     }}
                   />
                   <Errors className='text-danger' 

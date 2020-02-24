@@ -1,11 +1,10 @@
 import React from "react";
 import { Card, CardImg, CardBody, CardText, CardTitle, BreadcrumbItem, Breadcrumb } from "reactstrap";
 import { Link } from 'react-router-dom';
+import CommentForm from "./commentForm";
 
 const RenderDish = ({dish}) => {
   if (dish) {
-    console.log(dish);
-    
     return (
       <Card>
         <CardImg top src={dish.image} alt={dish.name}></CardImg>
@@ -26,7 +25,6 @@ const RenderComments = ({ comments }) => {
     day: "numeric"
   };
   if (comments) {
-    console.log(comments)
     return (
       <div>
         <h4>Comments</h4>
@@ -74,6 +72,7 @@ const Dishdetail = (props) => {
         </div>
         <div className='col-12 col-md-5 m-1'>
           <RenderComments comments = {props.comments} />
+          <CommentForm />
         </div>
       </div>
       </div>

@@ -24,10 +24,6 @@ export const mapStateToProps = ({ dishes, comments, promotions, leaders }) => {
 }
 
 class MainComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const Homepage = () => {
       return <Home dish={this.props.dishes.filter(dish => dish.featured)[0]}

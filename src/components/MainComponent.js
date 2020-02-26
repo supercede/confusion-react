@@ -13,6 +13,7 @@ import Footer from "./footerComponent";
 import Home from "./homeComponent";
 import About from './aboutComponent';
 import Contact from "./contactComponent";
+import { addComment } from "../redux/actionCreators";
 
 export const mapStateToProps = ({ dishes, comments, promotions, leaders }) => {
   return {
@@ -20,6 +21,12 @@ export const mapStateToProps = ({ dishes, comments, promotions, leaders }) => {
     comments,
     promotions,
     leaders
+  }
+}
+
+export const mapDispatchToProps = dispatch => {
+  return {
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
   }
 }
 
@@ -36,6 +43,7 @@ class MainComponent extends Component {
       return (
         <Dishdetail dish={this.props.dishes.filter(dish => dish.id === parseInt(match.params.dishId))[0]}
         comments={this.props.comments.filter(comment => comment.dishId === parseInt(match.params.dishId))}
+        addComment={this.props.addComment}
         />
       )
     }
@@ -57,4 +65,4 @@ class MainComponent extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(MainComponent));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));

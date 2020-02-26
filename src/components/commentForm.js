@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import { LocalForm, Control, Errors } from "react-redux-form";
 
+const selectRequired = val => val;
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
@@ -31,7 +32,11 @@ class CommentForm extends Component {
   };
 
   handleSubmit(values) {
-    alert(`Response: ${JSON.stringify(values)}`);
+
+    console.log(values);
+    
+    console.log(this.props)
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   render() {
@@ -53,13 +58,25 @@ class CommentForm extends Component {
                     model=".rating"
                     className="form-control"
                     name="rating"
+                    validators={{
+                      selectRequired
+                    }}
                   >
+                    <option>Choose Rating</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
                     <option>5</option>
                   </Control.select>
+                <Errors
+                  className="text-danger"
+                  model=".rating"
+                  show='touched'
+                  messages={{
+                    selectRequired: "This field is Required",
+                  }}
+                />
                 </Col>
               </Row>
               <Row className="form-group">

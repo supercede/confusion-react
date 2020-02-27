@@ -13,7 +13,7 @@ import Footer from "./footerComponent";
 import Home from "./homeComponent";
 import About from './aboutComponent';
 import Contact from "./contactComponent";
-import { addComment } from "../redux/actionCreators";
+import { addComment, fetchDishes } from "../redux/actionCreators";
 
 export const mapStateToProps = ({ dishes, comments, promotions, leaders }) => {
   return {
@@ -26,11 +26,15 @@ export const mapStateToProps = ({ dishes, comments, promotions, leaders }) => {
 
 export const mapDispatchToProps = dispatch => {
   return {
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    fetchDishes: () => dispatch(fetchDishes())
   }
 }
 
 class MainComponent extends Component {
+  componentDidMount () {
+    this.props.fetchDishes();
+  }
   render() {
     const Homepage = () => {
       return <Home dish={this.props.dishes.filter(dish => dish.featured)[0]}

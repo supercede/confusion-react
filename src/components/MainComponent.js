@@ -37,7 +37,9 @@ class MainComponent extends Component {
   }
   render() {
     const Homepage = () => {
-      return <Home dish={this.props.dishes.filter(dish => dish.featured)[0]}
+      return <Home dish={this.props.dishes.dishes.filter(dish => dish.featured)[0]}
+      dishesLoading={this.props.dishes.isLoading}
+      dishesErrMsg={this.props.dishes.errMsg}
       promotion={this.props.promotions.filter(promotion => promotion.featured)[0]}
       leader={this.props.leaders.filter(leader => leader.featured)[0]}
       />
@@ -45,7 +47,9 @@ class MainComponent extends Component {
 
     const dishWithId = ({match}) => {
       return (
-        <Dishdetail dish={this.props.dishes.filter(dish => dish.id === parseInt(match.params.dishId))[0]}
+        <Dishdetail dish={this.props.dishes.dishes.filter(dish => dish.id === parseInt(match.params.dishId))[0]}
+        isLoading = { this.props.dishes.isLoading }
+        errMsg = { this.props.dishes.errMsg }
         comments={this.props.comments.filter(comment => comment.dishId === parseInt(match.params.dishId))}
         addComment={this.props.addComment}
         />

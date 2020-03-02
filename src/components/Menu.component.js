@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from "reactstrap";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { Loading } from "./loadingComponent";
 
 const RenderMenuItems = ({dish, onClick}) => {
   return (
@@ -16,11 +17,21 @@ const RenderMenuItems = ({dish, onClick}) => {
 }
 
 const Menu = (props) => {
-  const menu = props.dishes.map(dish => (
+  const menu = props.dishes.dishes.map(dish => (
     <div key={dish.id} className='col-12 col-md-5 m-1'>
       <RenderMenuItems dish={dish}/>
     </div>
   ));
+    console.log(props);
+    
+  if(props.dishes.isLoading) {
+    return <Loading />
+  }
+  else if (props.dishes.errMsg) {
+    return (
+      <h4>{props.dishes.errMsg}</h4>
+    )
+  }
 
   return (
     <div className='container'>

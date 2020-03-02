@@ -7,8 +7,20 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap';
+import { Loading } from './loadingComponent';
 
-function RenderFeaturedCard({ item }) {
+function RenderFeaturedCard({ item, isLoading, errMsg }) {
+  // console.log(item, isLoading, errMsg);
+  
+  if(isLoading) {
+    return <Loading />
+  }
+  else if (errMsg) {
+    return (
+      <h4>{errMsg}</h4>
+    )
+  }
+
   return (
     <Card>
       <CardImg src={item.image} alt={item.name} />
@@ -23,18 +35,20 @@ function RenderFeaturedCard({ item }) {
   );
 }
 
-function Home({ dish, promotion, leader }) {
+function Home(props) {
+  console.log(props);
+  
   return (
     <div className='container'>
       <div className='row align-items-start'>
         <div className='col-12 col-md m-1'>
-          <RenderFeaturedCard item={dish} />
+          <RenderFeaturedCard item={props.dish} isLoading={props.dishesLoading} errMsg={props.dishesErrMsg} />
         </div>
         <div className='col-12 col-md m-1'>
-          <RenderFeaturedCard item={promotion} />
+          <RenderFeaturedCard item={props.promotion} />
         </div>
         <div className='col-12 col-md m-1'>
-          <RenderFeaturedCard item={leader} />
+          <RenderFeaturedCard item={props.leader} />
         </div>
       </div>
     </div>

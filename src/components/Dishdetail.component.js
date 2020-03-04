@@ -20,7 +20,7 @@ const RenderDish = ({dish}) => {
   return <div></div>;
 }
 
-const RenderComments = ({ comments, addComment, dishId }) => {
+const RenderComments = ({ comments, postComment, dishId }) => {
   const options = {
     year: "numeric",
     month: "long",
@@ -90,8 +90,8 @@ const Dishdetail = (props) => {
           <RenderDish dish = {props.dish} />
         </div>
         <div className='col-12 col-md-5 m-1'>
-          <RenderComments comments = {props.comments} addComment={props.addComment} dishId={props.dish.id} />
-          <CommentForm dishId={props.dish.id} addComment={props.addComment} />
+          <RenderComments comments = {props.comments} postComment={props.postComment} dishId={props.dish.id} />
+          <CommentForm dishId={props.dish.id} postComment={props.postComment} />
         </div>
       </div>
       </div>

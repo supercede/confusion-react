@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { LocalForm, Control, Errors } from "react-redux-form";
 
-const selectRequired = val => val;
+const selectRequired = val => val && !isNaN(val);
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
@@ -36,7 +36,7 @@ class CommentForm extends Component {
     console.log(values);
     
     console.log(this.props)
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   render() {

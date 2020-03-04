@@ -14,7 +14,7 @@ import Footer from "./footerComponent";
 import Home from "./homeComponent";
 import About from './aboutComponent';
 import Contact from "./contactComponent";
-import { addComment, fetchDishes, fetchComments, fetchPromos } from "../redux/actionCreators";
+import { postComment, fetchDishes, fetchComments, fetchPromos } from "../redux/actionCreators";
 
 export const mapStateToProps = ({ dishes, comments, promotions, leaders }) => {
   return {
@@ -27,7 +27,7 @@ export const mapStateToProps = ({ dishes, comments, promotions, leaders }) => {
 
 export const mapDispatchToProps = dispatch => {
   return {
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
     fetchDishes: () => dispatch(fetchDishes()),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
     fetchPromos: () => dispatch(fetchPromos()),
@@ -60,7 +60,7 @@ class MainComponent extends Component {
         errMsg = { this.props.dishes.errMsg }
         comments={this.props.comments.comments.filter(comment => comment.dishId === parseInt(match.params.dishId))}
         commentsErrMsg={this.props.dishes.errMsg}
-        addComment={this.props.addComment}
+        postComment={this.props.postComment}
         />
       )
     }

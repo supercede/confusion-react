@@ -16,7 +16,7 @@ function RenderFeaturedCard({ item, isLoading, errMsg }) {
   if(isLoading) {
     return <Loading />
   }
-  else if (errMsg || !item) {
+  else if (errMsg) {
     return (
       <h4>{errMsg}</h4>
     )
@@ -51,7 +51,7 @@ function Home(props) {
           <RenderFeaturedCard item={props.promotion} isLoading={props.promosLoading} errMsg={props.promosErrMsg} />
         </div>
         <div className='col-12 col-md m-1'>
-          <RenderFeaturedCard item={props.leader} />
+          <RenderFeaturedCard item={props.leader} isLoading={props.leadersLoading} errMsg={props.leadersErrMsg} />
         </div>
       </div>
     </div>

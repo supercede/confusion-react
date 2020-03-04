@@ -155,3 +155,80 @@ export const addPromos = promos => {
     payload: promos
   }
 };
+
+export const fetchLeaders = () => dispatch => {
+  return fetch(baseUrl + 'leaders')
+    .then(response => {
+      if (response.ok) return response;
+      else {
+        const error = new Error('Error' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+      const errMsg = new Error(error.message);
+      throw errMsg
+    })
+    .then(response => response.json())
+    .then(leaders => dispatch(addLeaders(leaders)))
+    .catch(error => dispatch(promosFailed(error.message)));
+}
+
+export const addLeaders = leaders => {
+  return {
+    type: ActionTypes.ADD_LEADERS,
+    payload: leaders
+  }
+}
+
+export const leadersLoading = () => {
+  return {
+    type: ActionTypes.LEADERS_LOADING
+  }
+};
+
+export const leadersFailed = errMsg => {
+  return {
+    type: ActionTypes.LEADERS_FAILED,
+    payload: errMsg
+  }
+};
+
+export const postFeedback = (firstName, lastName, telNum, email, contactType, message) => dispatch => {
+  const feedback = {
+    firstName,
+    lastName,
+    telNum,
+    email,
+    contactType,
+    message
+  }
+  feedback.date = new Date().toISOString();
+
+  return fetch(baseUrl + 'feedback', {
+    method: 'POST',
+    body: JSON.stringify(feedback),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'same-origin'
+  })
+  .then(response => {
+    if(response.ok) return response;
+    else {
+      const error = new Error('Error' + response.status + ': ' + response.statusText);error.response = response;
+      throw error;
+    }
+  },
+  error => {
+    const errMsg = new Error(error.message);
+    throw errMsg
+  })
+  .then(response => response.json())
+  .then(response => dispatch(addComment(response)))
+  .catch(error => {
+    console.log(error.message);
+    alert('Your comment could not be posted' + error.message);
+  });
+}

@@ -23,7 +23,6 @@ const Menu = (props) => {
       <RenderMenuItems dish={dish}/>
     </div>
   ));
-    console.log(props);
     
   if(props.dishes.isLoading) {
     return <Loading />

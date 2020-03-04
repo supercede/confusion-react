@@ -4,17 +4,23 @@ import { Link } from 'react-router-dom';
 import { Loading } from './loadingComponent';
 import CommentForm from "./commentForm";
 import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Stagger, Fade } from 'react-animation-components'
 
 const RenderDish = ({dish}) => {
   if (dish) {
     return (
-      <Card>
-        <CardImg top src={baseUrl + dish.image} alt={dish.name}></CardImg>
-        <CardBody>
-          <CardTitle>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform in
+      transformProps={{
+        exitTransform: 'scale(0.5) translateY(-50%)'
+      }}>
+        <Card>
+          <CardImg top src={baseUrl + dish.image} alt={dish.name}></CardImg>
+          <CardBody>
+            <CardTitle>{dish.name}</CardTitle>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     );
   }
   return <div></div>;
@@ -32,7 +38,9 @@ const RenderComments = ({ comments, postComment, dishId }) => {
         <h4>Comments</h4>
         {comments ? (
           <ul className='list-unstyled'>
+            <Stagger in>
             {comments.map((comment, i) => (
+              <Fade in key={i}>
               <li key={i}>
                 <p>{comment.comment}</p>
                 <p>
@@ -43,7 +51,9 @@ const RenderComments = ({ comments, postComment, dishId }) => {
                   )}
                 </p>
               </li>
+              </Fade>
             ))}
+            </Stagger>
           </ul>
         ) : (
           <div>No comments</div>

@@ -8,22 +8,21 @@ import {
   CardText
 } from 'reactstrap';
 import { Loading } from './loadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderFeaturedCard({ item, isLoading, errMsg }) {
-  // console.log(item, isLoading, errMsg);
   
   if(isLoading) {
     return <Loading />
   }
-  else if (errMsg) {
+  else if (errMsg || !item) {
     return (
       <h4>{errMsg}</h4>
     )
   }
-
   return (
     <Card>
-      <CardImg src={item.image} alt={item.name} />
+      <CardImg src={baseUrl + item.image} alt={item.name} />
       <CardBody>
         <CardTitle>{item.name}</CardTitle>
         {item.designation ? (
@@ -45,7 +44,7 @@ function Home(props) {
           <RenderFeaturedCard item={props.dish} isLoading={props.dishesLoading} errMsg={props.dishesErrMsg} />
         </div>
         <div className='col-12 col-md m-1'>
-          <RenderFeaturedCard item={props.promotion} />
+          <RenderFeaturedCard item={props.promotion} isLoading={props.promosLoading} errMsg={props.promosErrMsg} />
         </div>
         <div className='col-12 col-md m-1'>
           <RenderFeaturedCard item={props.leader} />

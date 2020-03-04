@@ -195,12 +195,13 @@ export const leadersFailed = errMsg => {
   }
 };
 
-export const postFeedback = (firstName, lastName, telNum, email, contactType, message) => dispatch => {
+export const postFeedback = (firstName, lastName, telNum, email, agree, contactType, message) => dispatch => {
   const feedback = {
     firstName,
     lastName,
     telNum,
     email,
+    agree,
     contactType,
     message
   }

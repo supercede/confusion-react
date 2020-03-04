@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Loading } from './loadingComponent';
 import CommentForm from "./commentForm";
 import { baseUrl } from "../shared/baseUrl";
-import { FadeTransform, Stagger, Fade } from 'react-animation-components'
+import { FadeTransform, Stagger, Fade } from 'react-animation-components';
 
 const RenderDish = ({dish}) => {
   if (dish) {

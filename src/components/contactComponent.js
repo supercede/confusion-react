@@ -8,7 +8,7 @@ import {
   Row
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Form, Control, Errors, actions } from 'react-redux-form';
+import { Form, Control, Errors } from 'react-redux-form';
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
@@ -24,6 +24,17 @@ class Contact extends Component {
   }
 
   handleSubmit(values) {
+    const {
+      firstName,
+      lastName,
+      telNum,
+      email,
+      agree,
+      contactType,
+      message
+    } = values;
+    this.props.postFeedback(firstName, lastName, telNum, email, agree, contactType, message);
+
     alert(`Response: ${JSON.stringify(values)}`);
     this.props.resetFeedbackForm();
   }
@@ -239,7 +250,7 @@ class Contact extends Component {
                     }}
                   />
                   <Errors className='text-danger' 
-                    model='.email'
+                    model='.message'
                     show='touched'
                     messages={{
                       required: 'Required',

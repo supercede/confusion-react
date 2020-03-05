@@ -16,7 +16,7 @@ const RenderDish = ({dish}) => {
         <Card>
           <CardImg top src={baseUrl + dish.image} alt={dish.name}></CardImg>
           <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
+            <CardTitle><h3>{dish.name}</h3></CardTitle>
             <CardText>{dish.description}</CardText>
           </CardBody>
         </Card>

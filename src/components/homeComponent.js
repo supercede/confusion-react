@@ -12,7 +12,6 @@ import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform } from 'react-animation-components'
 
 function RenderFeaturedCard({ item, isLoading, errMsg }) {
-  
   if(isLoading) {
     return <Loading />
   }
@@ -42,7 +41,7 @@ function RenderFeaturedCard({ item, isLoading, errMsg }) {
 
 function Home(props) {
   return (
-    <div className='container'>
+    <div className='container mt-3'>
       <div className='row align-items-start'>
         <div className='col-12 col-md m-1'>
           <RenderFeaturedCard item={props.dish} isLoading={props.dishesLoading} errMsg={props.dishesErrMsg} />

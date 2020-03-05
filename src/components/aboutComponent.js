@@ -34,14 +34,22 @@ const RenderLeader = ({ leader }) => {
 
 function About(props) {
   if (props.isLoading) {
-    return <Loading />;
+    return(
+      <div className='col-12'>
+        <Loading />;
+      </div>
+    ) 
   } else if (props.errMsg) {
-    return <h4>{props.errMsg}</h4>;
+    return (
+      <div className='col-12'>
+        <h4>{props.errMsg}</h4>
+      </div>
+    );
   }
 
   const leaders = props.leaders.leaders.map(leader => {
     return (
-      <Fade in>
+      <Fade in key={leader.id}>
         <div key={leader.id}>
           <RenderLeader leader={leader} />
         </div>

@@ -172,7 +172,7 @@ export const fetchLeaders = () => dispatch => {
     })
     .then(response => response.json())
     .then(leaders => dispatch(addLeaders(leaders)))
-    .catch(error => dispatch(promosFailed(error.message)));
+    .catch(error => dispatch(leadersFailed(error.message)));
 }
 
 export const addLeaders = leaders => {
